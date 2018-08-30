@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cafeComment">
+	<insert id="insert" parameterType="commentDto">
+	 insert into board_cafe_comment(num,writer,content,target_id,ref_group,comment_group,regdate)
+	 values (#{num},#{writer},#{content},#{target_id},#{ref_group},#{comment_group},SYSDATE)
+	</insert>
+	
+	<select id="getSequence" resultType="int">
+		select board_cafe_seq.NEXTVAL
+		from DUAL
+	</select>
+	
+	<select id="getList" parameterType="int" resultType="commentDto">
+		select num,writer,content,target_id,ref_group,comment_group,
+		TO_CHAR(regdate,'YYYY.MM.DD HH24:MI') regdate
+		from board_cafe_comment
+		where ref_group=#{num}
+		order by comment_group ASC, num ASC
+	</select>
+	
+	<delete id="delete" parameterType="int">
+		delete from board_cafe_comment
+		where num=#{num}
+	</delete>
+	
+	<update id="update" parameterType="commentDto">
+	update board_cafe_comment
+	set title=#{title},content=#{content}
+	where num=#{num}
+	</update>
+	
+	<select id="getData" parameterType="commentDto" 
+      resultType="commentDto">
+      SELECT title,content
+      FROM board_cafe_comment
+      WHERE num=#{num}         
+   </select>
+</mapper>
+

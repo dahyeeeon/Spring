@@ -8,6 +8,7 @@
 <title>/views/member/list.jsp</title>
 </head>
 <body>
+<a href="insertform.do">회원추가 폼</a>
 <h3>회원 목록</h3>
 <table>
 	<thread>
@@ -15,6 +16,8 @@
 			<th>번호</th>
 			<th>이름</th>
 			<th>주소</th>
+			<th>수정</th>
+			<th>삭제</th>
 		</tr>
 	</thread>
 	<tbody>
@@ -23,9 +26,19 @@
 			<td>${tmp.num }</td>
 			<td>${tmp.name }</td>
 			<td>${tmp.addr }</td>
+			<td><a href="updateform.do?num=${tmp.num }">수정</a></td>
+			<td><a href="javascript:deleteConfirm(${tmp.num})">삭제</a></td>
 		</tr>
 		</c:forEach>
 	</tbody>
 </table>
 </body>
 </html>
+<script>
+	function deleteConfirm(num){
+		var isDelete=confirm(num+" 번 회원을 삭제할까요?");
+		if(isDelete){
+			location.href="delete.do?num="+num;	
+		}
+	}
+</script>

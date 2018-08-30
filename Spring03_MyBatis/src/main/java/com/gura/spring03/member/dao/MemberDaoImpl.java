@@ -18,26 +18,26 @@ public class MemberDaoImpl implements MemberDao {
 	
 	@Override
 	public void insert(MemberDto dto) {
-		// TODO Auto-generated method stub
+		session.insert("member.insert",dto);
 		
 	}
 
 	@Override
 	public void update(MemberDto dto) {
-		// TODO Auto-generated method stub
+		session.update("member.update",dto);
 		
 	}
 
 	@Override
 	public void delete(int num) {
-		// TODO Auto-generated method stub
+		session.delete("member.delete",num);
 		
 	}
 
 	@Override
 	public MemberDto getData(int num) {
-		// TODO Auto-generated method stub
-		return null;
+		MemberDto dto=session.selectOne("member.getData",num);
+		return dto;
 	}
 
 	@Override
